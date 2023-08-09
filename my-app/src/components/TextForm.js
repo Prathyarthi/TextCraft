@@ -21,22 +21,30 @@ export default function TextForm(props) {
         setText(newText)
     }
 
+    const handleCopy = () => {
+        var text = document.getElementById("my-box");
+        text.select();
+        navigator.clipboard.writeText(text.value);
+    }
+
     const [text, setText] = useState("");
 
     return (
         <>
-            <h1>{props.heading}</h1>
-            <div className="mb-3">
+            <div className="mb-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
+                <h1>{props.heading}</h1>
                 <textarea
+                    style={{ backgroundColor: props.mode === 'dark' ? 'black' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }}
                     onChange={handleOnChange}
                     value={text}
                     className="form-control"
-                    id="exampleFormControlTextarea1"
+                    id="my-box"
                     rows={3}
                 />
                 <button className="btn btn-primary my-3 mx-2" onClick={handleOnClickUpper} >Convert to UPPERCASE</button>
                 <button className="btn btn-primary my-3 mx-2" onClick={handleOnClickLower} >Convert to lowercase</button>
                 <button className="btn btn-primary my-3 mx-2" onClick={handleClearText} >Clear Text</button>
+                <button className="btn btn-primary my-3 mx-2" onClick={handleCopy} >Copy Text</button>
                 <div>
                     <p>{"Number of words : " + text.split(" ").length}</p>
                     <p>{"Number of characters : " + text.length}</p>
